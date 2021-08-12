@@ -1,3 +1,6 @@
+//@ts-check
+/// <reference path="../node_modules/njs-types/ngx_http_js_module.d.ts" />
+
 // Date Handling
 //
 function pad(n) {return n<10 ? '0'+n : n}
@@ -25,6 +28,10 @@ function payHash(r) {
 
 // Generate Authorization Header
 //
+
+/**
+ * @param {NginxHTTPRequest} r
+ **/
 function awsSign(r) {
 
 // CHANGE THESE VARIABLES to match your AWS Environment #######
@@ -79,7 +86,7 @@ var string_to_sign = algorithm + '\n' +  amzdate + '\n' +  credential_scope + '\
 
 var signature = sign(string_to_sign, signing_key)
 
-var authorization_header = algorithm + ' ' + 'Credential=' + access_key + '/' + credential_scope + ', ' +  'SignedHeaders=' + signed_headers + ', ' + 'Signature=' + signature.toBytes().toString('hex')
+var authorization_header = algorithm + ' ' + 'Credential=' + access_key + '/' + credential_scope + ', ' +  'SignedHeaders=' + signed_headers + ', ' + 'Signature=' + signature.toString('hex')
 
 	return(authorization_header);
 }
