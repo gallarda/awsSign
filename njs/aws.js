@@ -18,9 +18,12 @@ var crypto = require("crypto");
 
 // Generate Hash of Request Payload
 //
+/**
+ * @param {NginxHTTPRequest} r
+ **/
 function payHash(r) {
-	if (r.requestBody) {
-		return crypto.createHash('sha256').update(r.requestBody).digest('hex');
+	if (r.requestBuffer) {
+		return crypto.createHash('sha256').update(r.requestBuffer).digest('hex');
 	} else {
 		return crypto.createHash('sha256').update('').digest('hex');
 	}
