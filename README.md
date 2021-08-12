@@ -1,19 +1,32 @@
-# njs
-Base repo template for njs development
+# awsSign
+Add AWSv4 Signature to proxied requests
 
-*Using with Docker CLI*
----
+First, add AWS credentials to `nginx.conf` and update region and apiHost if needed.
 
-After customizing nginx.conf and your njs source files, use this to start up an nginx container:
-
-docker run --rm -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro  -v $(pwd)/njs/:/etc/nginx/njs/:ro -p 80:80 -d nginx
-
-*Using with Visual Studio Code*
----
-
-After creating a new repo from this template in VS Code, you will be asked to open a devContainer.  The git client will be installed in the container when it is first created.
-
-Devcontainer will bind mount nginx.conf and the njs directory into /etc/nginx
-The official nginx OSS Docker image is used.
-
-Files in the workspace can be edited locally or in the container.  Just run `nginx -s reload` in a container terminal after saving a change.
+**Usage:**
+ 
+List all buckets:
+ 
+`curl localhost/s3/`
+ 
+List all objects in the “my-bucket" S3 bucket:
+ 
+`curl -H "bucket: my-bucket" localhost/s3/?list-type=2`
+ 
+The same command piped to an XML pretty printer:
+ 
+`curl -H "bucket: my-bucket" localhost/s3/?list-type=2 |xmllint --format –`
+ 
+Upload a new file to the S3 bucket:
+ 
+`curl -v -X PUT -H "bucket: my-bucket" -H "Content-Type: text/plain" -d 'This is a test' localhost/s3/foo2.txt`
+ 
+*Notice that I passed a Content-Type header here.  With `curl` the default content type for PUT is application/x-www-form-urlencoded*
+ 
+Download a file from S3:
+ 
+`curl -v -H "bucket: my-bucket" localhost/s3/foo2.txt`
+ 
+Delete a file from the bucket:  (Normal HTTP status code is 204: No Content)
+ 
+`curl -v -H "bucket: my-bucket" -X DELETE localhost/s3/foo2.txt`
