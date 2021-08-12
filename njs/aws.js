@@ -37,7 +37,7 @@ function payHash(r) {
  **/
 function awsSign(r) {
 
-// CHANGE THESE VARIABLES to match your AWS Environment #######
+// CHANGE THESE VARIABLES in nginx.conf to match your environment
 //
 var service = r.variables.service
 var host = r.variables.apiHost
