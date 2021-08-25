@@ -1,7 +1,7 @@
 {
     "image": "nginx",
     "overrideCommand": false,
-    "onCreateCommand": "/usr/bin/apt update && /usr/bin/apt install -y git npm && npm i --save-dev njs-types",
+    "onCreateCommand": "/usr/bin/apt update && /usr/bin/apt install -y git npm && npm i --save-dev @types/node njs-types",
     "mounts": [
         "source=${localWorkspaceFolder}/njs,target=/etc/nginx/njs,type=bind,readonly",
         "source=${localWorkspaceFolder}/nginx.conf,target=/etc/nginx/nginx.conf,type=bind,readonly"
